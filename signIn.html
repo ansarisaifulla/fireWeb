@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>login</title>
+	<!-- <link rel="stylesheet" type="text/css" href="css/stylelogin.css"> -->
+	<script src="index.js"></script>
+<style>
+    body
+{
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	background: url(background.png);
+	height: 100vh;
+	background-size: cover;
+	background-repeat: no-repeat;
+
+}
+.box{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	padding: 40px;
+	width: 400px;
+	background: rgba(0,0,0,0.8);
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0,0,0,0.5);
+	border-radius: 10px;
+}
+.box h2{
+ /*margin: 0;*/
+ padding: 0;
+ color: #fff;
+ text-align: center;
+}
+.box .inputbox{
+	position: relative;
+}
+.box .inputbox input{
+	width: 100%;
+	padding: 10px 0;
+	font-size: 16px;
+	color: #fff;
+	margin-bottom: 30px;
+	border: none;
+	border-bottom: 1px solid #fff;
+	outline: none;
+	background:transparent;
+}
+.box .inputbox label{
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 10px 0;
+	font-size: 16px;
+	color: #fff;
+	pointer-events: none;
+	transition: .5s;
+}
+.box .inputbox input:focus ~ label,
+.box .inputbox input:valid ~ label{
+	top: -18px;
+	left: 0;
+	color: #03a9f4;
+	font-size: 12px;
+}
+
+.box input[type="submit"]{
+	border-radius: 10px;
+	outline: none;
+	background: #03a9f4;
+	border: none;
+	padding: 10px 20px;
+	cursor: pointer;
+	color: #fff;
+	/*color: #fff;*/
+
+}
+
+
+
+
+
+
+</style>    
+</head>
+<body>
+<div class="box">
+	<h2>Login</h2>
+	<form>
+		<div class="inputbox">
+			<input type="email" name="" required="" id="email">
+			<label>email</label>
+			
+		</div>
+		<div class="inputbox">
+			<input type="password" name="" required="" id="password">
+			<label>password</label>
+			
+		</div>
+		<input onclick="myFun()" type="submit" name="" value="Submit"  id="btn-login">
+		<div style="text-align: center; margin: 30px 0 15px 0;">
+			<span style="color: white;">
+					Forgot
+			</span>
+			<a href="forgetPassword.html" class="text-dark">
+				username/password?
+			</a>
+		</div>
+		<div claa="w-full text-center" style="font-size: 15px;text-align: center;">
+			<a href="signUp.html" class="text-dark">Not have an account?signup</a>
+	  </div>
+	</form>
+	
+</div>
+<script>
+	 function myFun() {
+    var email=$("#email").val();
+        var password=$("#password").val();
+        if(email!="" && password!="")
+        {
+                       firebase.auth().signInWithEmailAndPassword(email,password).then(function(){
+                        window.location.href ="home.html";
+                       }).catch(function(error){
+                        var errorcode=error.code;
+                                                var message=error.message;
+                                                console.log(message);
+                                                console.log(errorcode);
+                                                window.alert("message:"+message);
+                       });
+                        
+        }
+        else{
+            window.alert("plz fill out all fields");
+        }
+}
+</script>
+
+</body>
+</html>
