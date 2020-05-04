@@ -1,20 +1,40 @@
-var firebaseConfig = 
-{
-    apiKey: "AIzaSyD2Z4lM8_hYQYGXIiRJurXGkaN9_FYguGA",
-    authDomain: "fir-web-a2774.firebaseapp.com",
-    databaseURL: "https://fir-web-a2774.firebaseio.com",
-    projectId: "fir-web-a2774",
-    storageBucket: "fir-web-a2774.appspot.com",
-    messagingSenderId: "910252380379",
-    appId: "1:910252380379:web:c6af6704e4d75f639efcfe",
-    measurementId: "G-RDJTB2W87T"
+// var firebaseConfig = 
+// {
+//     apiKey: "AIzaSyD2Z4lM8_hYQYGXIiRJurXGkaN9_FYguGA",
+//     authDomain: "fir-web-a2774.firebaseapp.com",
+//     databaseURL: "https://fir-web-a2774.firebaseio.com",
+//     projectId: "fir-web-a2774",
+//     storageBucket: "fir-web-a2774.appspot.com",
+//     messagingSenderId: "910252380379",
+//     appId: "1:910252380379:web:c6af6704e4d75f639efcfe",
+//     measurementId: "G-RDJTB2W87T"
+//   };
+//   // Initialize Firebase
+//   firebase.initializeApp(firebaseConfig);
+//   firebase.analytics();
+var firebaseConfig = {
+    apiKey: "AIzaSyChlh9VlxzmE9eoGbH-Jcl-Tm22FC9GszI",
+    authDomain: "login-web-app-299f6.firebaseapp.com",
+    databaseURL: "https://login-web-app-299f6.firebaseio.com",
+    projectId: "login-web-app-299f6",
+    storageBucket: "login-web-app-299f6.appspot.com",
+    messagingSenderId: "1012561876334",
+    appId: "1:1012561876334:web:60452a7ec801e87eb45d7f",
+    measurementId: "G-1RWRYEXCTS"
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   firebase.analytics();
+  
+//   var firebase = require("firebase/app");
+
+//   // Add the Firebase products that you want to use
+//   require("firebase/auth");
+//   require("firebase/firestore");
+
 
   firebase.auth().Auth().Persistance.LOCAL;
-  function myFunction() {
+  function login() {
     var email=$("#email").val();
         var password=$("#password").val();
         if(email!="" && password!="")
@@ -31,11 +51,11 @@ var firebaseConfig =
                         
         }
         else{
-            window.alert("plz fill out all fields");
+            window.alert("plz fill all fields");
         }
 }
 
-function myFunction2() {
+function register() {
     var email=$("#email").val();
         var password=$("#password").val();
         var cpassword=$("#confirmPassword").val();
@@ -45,6 +65,7 @@ function myFunction2() {
                 {
                     firebase.auth().createUserWithEmailAndPassword(email,password).then(function(){
                       window.alert("successfully registered.");
+                    //   window.location.href = "accountsettings.html"; 
                        }).catch(function(error){
                         var errorcode=error.code;
                                                 var message=error.message;
@@ -64,10 +85,11 @@ function myFunction2() {
     }
 }
 
-function myFunction3()
+function reset()
 {
     var auth=firebase.auth();
-    var email=$("#email").val();
+    var email=document.getElementById("email").value;
+    // var email=$("#email").val();
     if(email!="")
     {
         auth.sendPasswordResetEmail(email).then(function(){
@@ -86,7 +108,7 @@ function myFunction3()
     }
 }
 
-function myFunction4()
+function signOut()
 {
     firebase.auth().signOut().then(function(){
         window.location.href="signin.html";
@@ -100,8 +122,8 @@ function myFunction5()
     var phone=$("#phone").val();
         var address=$("#address").val();
         var bio=$("#bio").val();
-        var firstname=$("#FirstName").val();
-        var lastname=$("#LastName").val();
+        var firstname=$("#first").val();
+        var lastname=$("#last").val();
         var country=$("#country").val();
         var gender=$("#gender").val();
 
@@ -130,12 +152,14 @@ function myFunction5()
                     console.log(errorcode);
                     window.alert("message:"+message);
                 }else{
-                    window.location.href = "home.html"
+                    // window.alert("message:");
+                    window.location.href = "home.html";
                 }
             });
+           
         }
         else{
-            window.alert("please fill out all feilds.");
+            window.alert("please fill out feilds.");
         }
 }
 
@@ -145,10 +169,11 @@ function Delete()
 
     user.delete().then(function() {
     window.alert("deleted");
+    // firebase.database.ref().child("Users").child(user.uid).remove();
     }).catch(function(error) {
-    // An error happened.
+        window.alert("error");
     });
-    DeleteData();
+    // DeleteData();
 }
 
 function DeleteData(){
@@ -159,25 +184,47 @@ function DeleteData(){
 
   function UpdateDataUser()
   {
-      //window.location.href="update.html";
-        var phone=$("#phone1").val();
-        var address=$("#address1").val();
-        var bio=$("#bio1").val();
-        var firstname=$("#FirstName1").val();
-        var lastname=$("#LastName1").val();
-        var country=$("#country1").val();
-        var gender=$("#gender1").val();   
+        
+        var phone=$("#phone").val();
+        var address=$("#address").val();
+        var bio=$("#bio").val();
+        var firstname=$("#first").val();
+        var lastname=$("#last").val();
+        var country=$("#country").val();
+        var gender=$("#gender").val();
 
-    var userID = firebase.auth().currentUser.uid;
-    firebase.database().ref('Users/' + userID).set({
-        FirstName : firstname,
-        LastName  : lastname,
-        bio       : bio,
-        phone     : phone,
-        gender    : gender,
-        country   : country,
-        address   : address,  
-      });
-      window.alert("updated");
-      window.location.href="home.html";
+        var rootRef =firebase.database().ref().child("Users");
+        var userID = firebase.auth().currentUser.uid;
+        var userRef = rootRef.child(userID);
+
+        if(firstname !="" && lastname!="" && phone!="" && address!="" && bio!="" && gender!="" && country!="")
+        {
+            var userData =
+            {
+                "FirstName" : firstname,
+                "LastName"  : lastname,
+                "bio"       : bio,
+                "phone"     : phone,
+                "gender"    : gender,
+                "country"   : country,
+                "address"   : address,
+            };
+
+            userRef.set(userData,function(error){
+                if(error){
+                    var errorcode=error.code;
+                    var message=error.message;
+                    console.log(message);
+                    console.log(errorcode);
+                    window.alert("message:"+message);
+                }else{
+                    // window.alert("message:");
+                    window.location.href = "home.html";
+                }
+            });
+           
+        }
+        else{
+            window.alert("please fill out the missing feilds.");
+        }
   }

@@ -3,8 +3,18 @@
     <title>Register</title>
     <head>
         <!-- <link rel="stylesheet" href="css/styleregister.css"> -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+    <!-- <link rel="stylesheet" href="design_files/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css"> -->
+        
+        		
+		<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-database.js"></script>
         <script src="index.js"></script>
-
+        
+        
         <style>
             body{
     margin: 0;
@@ -19,12 +29,13 @@
     background: url(team.png);
     background-size: cover;
     background-repeat: no-repeat;
+    position: relative;
     
 }
 h1{
     text-align: center;
 }
-.modal{
+.modal1{
     padding: 50px 25px;
     width: 35%;
     top: 50%;
@@ -54,13 +65,13 @@ label{
     margin-top: 30px;
     text-align: center;
 }
-input[type="submit"]{
+button {
     font-size: 19px;
     color: #fff;
     background: rgb(49, 49, 223);
     border: none;
     outline: none;
-
+    cursor: pointer;
     font-weight: normal;
     padding: 7px 17px;
     border-radius: 7px;
@@ -69,32 +80,39 @@ input[type="submit"]{
     </head>
     <body>
         <div class="container-fluid">
-        <form class="modal">
-            <h1>REGISTER</h1>
+        <form action="">
+            <div class="modal1">
+                <h1>REGISTER</h1>
             <label>Username</label>
-            <input type="email" name="" required="" placeholder="enter email" id="email">
+            <input type="email"  placeholder="enter email" id="email" >
             <label>Password</label>
-            <input type="password" name="" required="" placeholder="enter password" id="password">
+            <input type="password"  placeholder="enter password" id="password" >
             <label>Confirm-password</label>
-            <input type="password" name="" required="" placeholder="enter Confirm-password" id="confirmPassword">
+            <input type="password"  placeholder="enter Confirm-password" id="confirmPassword" >
             <div class="bt-reg">
-                <input type="submit" name="Submit" onclick="myFunction2()" id="btn-signup">
+                <!-- <input type="submit" value="Submit" onclick="myFunction2()" id="btn-signup"> -->
+                <button type="button" onclick="register()" id="btn-signup">Register</button>
                 
             </div>
             <div style="font-size: 15px; text-align: center; margin-top: 25px;">
                 <a href="signIn.html" class="text-dark">Already have an account?</a>
           </div>
+            </div>
+            
 
         </form>
 
         </div>
 
-
+        
         <script>
-            firebase.auth().onAuthStateChanged(function(user){
+            firebase.auth().onAuthStateChanged(function(user){ 
+                             
                 if(user)
                 {
+                    window.location.href = "accountsettings.html"; 
                     var userID = firebase.auth().currentUser.uid;
+                    // firebase.database().ref().child("Users").set(userID);
                     firebase.database().ref('Users/' + userID).once('value').then(function(snapshot){
                         if(snapshot.val())
                         {

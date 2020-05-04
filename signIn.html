@@ -3,7 +3,19 @@
 <head>
 	<title>login</title>
 	<!-- <link rel="stylesheet" type="text/css" href="css/stylelogin.css"> -->
-	<script src="index.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+		
+	
+	
+        		
+		<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-analytics.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/7.13.1/firebase-database.js"></script>
+		<script src="index.js"></script>
+		
+
 <style>
     body
 {
@@ -66,13 +78,14 @@
 	font-size: 12px;
 }
 
-.box input[type="submit"]{
+button {
 	border-radius: 10px;
 	outline: none;
 	background: #03a9f4;
 	border: none;
 	padding: 10px 20px;
 	cursor: pointer;
+	
 	color: #fff;
 	/*color: #fff;*/
 
@@ -88,33 +101,34 @@
 <body>
 <div class="box">
 	<h2>Login</h2>
-	<form>
+	<form action="">
 		<div class="inputbox">
-			<input type="email" name="" required="" id="email">
-			<label>email</label>
+			<input type="email"  id="email"  placeholder="enter email" >
+			<!-- <label>email</label> -->
 			
 		</div>
 		<div class="inputbox">
-			<input type="password" name="" required="" id="password">
-			<label>password</label>
+			<input type="password"  id="password"  placeholder="enter password">
+			<!-- <label>password</label> -->
 			
 		</div>
-		<input onclick="myFun()" type="submit" name="" value="Submit"  id="btn-login">
+		<!-- <input onclick="myFunction()" type="submit"  value="Submit"  id="btn-login"> -->
+		<button type="button" onclick="login()" id="btn-login">Login</button>
 		<div style="text-align: center; margin: 30px 0 15px 0;">
 			<span style="color: white;">
 					Forgot
 			</span>
-			<a href="forgetPassword.html" class="text-dark">
+			<a href="forgotPass.html" class="text-primary">
 				username/password?
 			</a>
 		</div>
 		<div claa="w-full text-center" style="font-size: 15px;text-align: center;">
-			<a href="signUp.html" class="text-dark">Not have an account?signup</a>
+			<a href="signUp.html" class="text-warning">Not have an account?signup</a>
 	  </div>
 	</form>
 	
 </div>
-<script>
+<!-- <script>
 	 function myFun() {
     var email=$("#email").val();
         var password=$("#password").val();
@@ -135,7 +149,7 @@
             window.alert("plz fill out all fields");
         }
 }
-</script>
+</script> -->
 
 </body>
 </html>
